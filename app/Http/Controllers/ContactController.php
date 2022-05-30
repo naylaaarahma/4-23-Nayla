@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Contact;
+use Illuminate\Http\Request;
 
 class ContactController extends Controller
 {
@@ -14,8 +14,8 @@ class ContactController extends Controller
      */
     public function index()
     {
-        return view('contacts',[
-            "title" => "Contacts"
+        return view('contact',[
+            "title" => "Contact"
         ]);
     }
 
@@ -37,13 +37,10 @@ class ContactController extends Controller
      */
     public function store(Request $request)
     {
-         //
-        //dd($request->all());
         $contact = Contact::create($request->all());
         $contact->save();
 
-        return redirect('contacts');
-       
+        return redirect('contact');
     }
 
     /**
@@ -54,7 +51,7 @@ class ContactController extends Controller
      */
     public function show($id)
     {
-        //
+        
     }
 
     /**
@@ -63,9 +60,13 @@ class ContactController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+     public function edit($id)
     {
-        //
+        $contact = Contact::where('id',$id)->get();
+
+        return view('admin.edit',[
+            'contact' => $contact
+        ]);
     }
 
     /**
@@ -75,11 +76,16 @@ class ContactController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
-    }
+        Contact::where('id',$request->id)->update([
+            'name' => $request->nama,
+            'email' => $request->email,
+            'pesan' => $request->pesan
+        ]);
 
+        return redirect('home');
+    }
     /**
      * Remove the specified resource from storage.
      *
@@ -88,6 +94,10 @@ class ContactController extends Controller
      */
     public function destroy($id)
     {
-        //
+    
+        Contact::where('id',$id)->delete();
+
+        return redirect()->back();
+
     }
 }

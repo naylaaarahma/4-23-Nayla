@@ -2,26 +2,47 @@
  @section('title', 'Nayla | Dashboard')
  @section('content')
  <div class="main-content">
-                <div class="section__content section__content--p30">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="overview-wrap">
-                                    <h2 class="title-1">overview</h2>
-                                    <button class="au-btn au-btn-icon au-btn--blue">
-                                        <i class="zmdi zmdi-plus"></i>add item</button>
-                                </div>
-                            </div>
-                        </div>
-                         
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="copyright">
-                                    <p>Copyright © 2018 Colorlib. All rights reserved. Template by <a href="https://colorlib.com">Colorlib</a>.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        <div class="section__content section__content--p30">
+            <div class="container-fluid">
+                <table class="table table-striped table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Nama</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Pesan</th>
+                            <th scope="col">Aksi</th>
+                        </tr>
+                    </thead>
+                    @foreach ($pesan as $p)
+                        <tbody>
+                            <tr>
+                                <th scope="row">{{ $loop->iteration }}</th>
+                                <td>{{ $p->name }}</td>
+                                <td>{{ $p->email }}</td>
+                                <td>{{ $p->pesan }}</td>
+                                <td>
+                                    <a href="/edit_contact/{{ $p->id }}">
+                                        <button class="item" data-placement="top" title=""
+                                            data-original-title="Edit">
+                                            <i class="zmdi zmdi-edit"></i>
+                                        </button>
+                                    </a>
+                                    <a href="/delete_contact/{{ $p->id }}">
+                                        <button class="item ml-3" data-placement="top" title=""
+                                            data-original-title="Delete">
+                                            <i class="zmdi zmdi-delete"></i>
+                                        </button>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    @endforeach
+                </table>
+
+
+               
             </div>
+        </div>
+    </div>
  @endsection

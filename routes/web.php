@@ -35,6 +35,11 @@ Route::get('/gallery', function () {
     ]);
 });
 
+Route::get('/delete_contact/{id}', ContactController::class . '@destroy');
+Route::get('/edit_contact/{id}', ContactController::class . '@edit');
+Route::post('/update_contact', ContactController::class . '@update');
+
+
 Route::resource('/contacts', ContactController::class);
 Auth::routes();
 
